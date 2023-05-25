@@ -1,8 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import Movie from "./Movie";
 
 const Row = ({ title, fetchURL }) => {
   const [movies, setMovies] = useState([]);
+
   useEffect(() => {
     axios.get(fetchURL).then((response) => {
       setMovies(response.data.results);
@@ -15,13 +17,7 @@ const Row = ({ title, fetchURL }) => {
       <div className="relative flex items-center">
         <div id={"slider"}>
           {movies.map((movie, id) => (
-            <div className="w-[160px] sm:w-[200px] md:w-[250px] lg:w-[300px] inline-block cursor-pointer relative p-2">
-              <img
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                alt={movie.title}
-                className="rounded-xl"
-              />
-            </div>
+            <Movie movie={movie} key={id} />
           ))}
         </div>
       </div>
